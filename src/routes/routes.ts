@@ -12,7 +12,7 @@ router.get("/", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "../../public", "index.html"));
 });
 
-router.get("/todo", (req: error, res: Response) => {
+router.get("/todo", (req: Request, res: Response) => {
     try {
         // SIMULANDO UMA CONSULTA NO BANCO DE DADOS
         const resultado = tarefas;
