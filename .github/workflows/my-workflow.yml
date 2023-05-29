@@ -1,4 +1,4 @@
-name: learn-github-actions
+name: my-workflow
 run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push, pull_request]
 jobs:
@@ -18,3 +18,10 @@ jobs:
 
             - name: Build TypeScript
               run: yarn build
+
+    test:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Run tests
+              run: yarn test
