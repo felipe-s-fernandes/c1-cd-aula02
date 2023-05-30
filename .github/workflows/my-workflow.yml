@@ -1,5 +1,5 @@
-name: my-workflow-2
-run-name: ${{ github.actor }} is learning GitHub Actions
+name: PR-workflow
+run-name: Integration workflow with deployment if on main branch
 on: [push, pull_request]
 jobs:
     build:
@@ -36,3 +36,13 @@ jobs:
 
             - name: Runs tests
               run: yarn test
+
+    deploy-staging:
+        needs: [build, test]
+        runs-on: ubuntu-latest
+        if: ${{ github.ref == 'refs/heads/main' }}
+        steps:
+            - name: deploy
+              uses: fjogeleit/http-request-action@v1
+              with:
+                  url: "${{ secrets.STAGING_DEPLOY_HOOK }}"
